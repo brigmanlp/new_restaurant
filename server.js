@@ -18,21 +18,21 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // Restaurant tables (DATA)
 // =============================================================
 var tables = [{
-    customerID: "Galaxy",
-    customerNname: "Yoda",
+    customerName: "Yoda",
     phoneNumber: 7042778278,
-    customerEmail: "greenman@gmail.com"
+    customerEmail: "greenman@gmail.com",
+    customerID: "Galaxy"
 
 }, {
-    customerID: "Xmen",
-    customerNname: "professor X",
+    customerName: "professor X",
     phoneNumber: 7042778378,
-    customerEmail: "baldy@gmail.com"
+    customerEmail: "baldy@gmail.com",
+    customerID: "Xmen"
 }, {
-    customerID: "DC peeps",
-    customerNname: "Flash",
+    customerName: "Flash",
     phoneNumber: 7042778379,
-    customerEmail: "speedster@gmail.com"
+    customerEmail: "speedster@gmail.com",
+    customerID: "Xmen"
 }];
 
 // Routes
@@ -68,7 +68,7 @@ app.get("/api/:tables?", function(req, res) {
 });
 
 // Create New tables - takes in JSON input
-app.post("/api/new", function(req, res) {
+app.post("/api/tables", function(req, res) {
     var newtables = req.body;
     newtables.routeName = newtables.name.replace(/\s+/g, "").toLowerCase();
 
