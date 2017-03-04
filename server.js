@@ -3,6 +3,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var fs = require('fs');
 
 // Sets up the Express App
 // =============================================================
@@ -51,8 +52,8 @@ app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
-// Search for Specific Character (or all tables) - provides JSON
-app.get("/api/:tables?", function(req, res) {
+//API table link on homepage - provides JSON
+app.get("/api/tables", function(req, res) {
     var chosen = req.params.tables;
 
     if (chosen) {
@@ -71,10 +72,29 @@ app.get("/api/:tables?", function(req, res) {
     }
 });
 
+//API table link on homepage - provides JSON
+app.get("/api/waitlist", function(req, res) {
+    var chosen = req.params.waitlist;
+
+    if (chosen) {
+        console.log(chosen);
+
+        for (var i = 0; i < waitlist.length; i++) {
+            if (chosen === waitlist[i].routeName) {
+                res.json(waitlist[i]);
+                return;
+            }
+        }
+
+        res.json(false);
+    } else {
+        res.json(waitlist);
+    }
+});
 // Create New tables - takes in JSON input
 app.post("/api/tables", function(req, res) {
     var newtables = req.body;
-    newtables.routeName = newtables.name.replace(/\s+/g, "").toLowerCase();
+    newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
 
     console.log(newtables);
 
