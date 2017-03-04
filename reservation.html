@@ -119,11 +119,8 @@
 
 	    	// If a table is available... tell user they on the waiting list.
 	    	if(data == false){
-	    		$.post(currentURL + "/api/waitlist", newReservation,
-	    function(data){
 	    		alert("Sorry you are on the wait list")
-	    	});
-	    }
+	    	}
 
 	    	// Clear the form when submitting
     		$('#reserve_name').val("");

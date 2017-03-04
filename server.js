@@ -33,16 +33,9 @@ var tables = [{
     customerName: "Flash",
     phoneNumber: 7042778379,
     customerEmail: "speedster@gmail.com",
-    customerID: "DC peeps"
+    customerID: "Xmen"
 }];
 
-var waitlist = [{
-  customerID: "LooneyTunes",
-  customerNname: "Buggs B",
-  phoneNumber: 7045778278 ,
-  customerEmail: "BBfurytail@gmail.com"
-
-}];
 // Routes
 // =============================================================
 
@@ -60,7 +53,7 @@ app.get("/tables", function(req, res) {
 });
 
 //API table link on homepage - provides JSON
-app.get("/api/tables", function(req, res) {// removed the "?" becaus that made it optional
+app.get("/api/tables", function(req, res) {
     var chosen = req.params.tables;
 
     if (chosen) {
@@ -98,55 +91,17 @@ app.get("/api/waitlist", function(req, res) {
         res.json(waitlist);
     }
 });
-
-// var reservedTables = [];
-// var waitingTbls = [];
 // Create New tables - takes in JSON input
 app.post("/api/tables", function(req, res) {
     var newtables = req.body;
-    if (tables.length <= 2){
-       
-        newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
+    newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
 
-        console.log(newtables);
-        reservedTables.push(newtables);
-        tables.push(newtables);
+    console.log(newtables);
 
-        res.json(newtables);
+    tables.push(newtables);
 
-    }else {
-        app.post("/api/waitlist", function(req, res) {
-        
-        newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
-
-        console.log(newtables);
-        // waitingTbls.push(newtables);
-        waitlist.push(newtables);
-
-        res.json(newtables);
-        });
-    }
-
-
+    res.json(newtables);
 });
-
-// Create Reservation tables - takes in JSON input
-// var reserve = function(newtables){
-//     app.post("/api/waitlist", function(req, res) {
-        
-//         newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
-
-//         console.log(newtables);
-//         // waitingTbls.push(newtables);
-//         waitlist.push(newtables);
-
-//         res.json(newtables);
-//     });
-
-// }
-
-
-
 
 // Starts the server to begin listening
 // =============================================================
