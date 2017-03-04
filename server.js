@@ -36,6 +36,14 @@ var tables = [{
     customerID: "Xmen"
 }];
 
+var waitlist = [{
+  customerID: "LooneyTunes",
+  customerNname: "Buggs B",
+  phoneNumber: 7045778278 ,
+  customerEmail: "BBfurytail@gmail.com"
+
+}];
+
 // Routes
 // =============================================================
 
