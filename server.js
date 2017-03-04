@@ -18,21 +18,21 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // Restaurant tables (DATA)
 // =============================================================
 var tables = [{
-  customerID: "Galaxy",
-  customerNname: "Yoda",
-  phoneNumber: 7042778278 ,
-  customerEmail: "greenman@gmail.com"
-  
+    customerID: "Galaxy",
+    customerNname: "Yoda",
+    phoneNumber: 7042778278,
+    customerEmail: "greenman@gmail.com"
+
 }, {
-  customerID: "Xmen",
-  customerNname: "professor X",
-  phoneNumber: 7042778378 ,
-  customerEmail: "baldy@gmail.com"
+    customerID: "Xmen",
+    customerNname: "professor X",
+    phoneNumber: 7042778378,
+    customerEmail: "baldy@gmail.com"
 }, {
-  customerID: "DC peeps",
-  customerNname: "Flash",
-  phoneNumber: 7042778379 ,
-  customerEmail: "speedster@gmail.com"
+    customerID: "DC peeps",
+    customerNname: "Flash",
+    phoneNumber: 7042778379,
+    customerEmail: "speedster@gmail.com"
 }];
 
 // Routes
@@ -40,48 +40,47 @@ var tables = [{
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "view.html"));
+    res.sendFile(path.join(__dirname, "reservation.html"));
 });
 
 app.get("/add", function(req, res) {
-  res.sendFile(path.join(__dirname, "add.html"));
+    res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 // Search for Specific Character (or all tables) - provides JSON
 app.get("/api/:tables?", function(req, res) {
-  var chosen = req.params.tables;
+    var chosen = req.params.tables;
 
-  if (chosen) {
-    console.log(chosen);
+    if (chosen) {
+        console.log(chosen);
 
-    for (var i = 0; i < tables.length; i++) {
-      if (chosen === tables[i].routeName) {
-        res.json(tables[i]);
-        return;
-      }
+        for (var i = 0; i < tables.length; i++) {
+            if (chosen === tables[i].routeName) {
+                res.json(tables[i]);
+                return;
+            }
+        }
+
+        res.json(false);
+    } else {
+        res.json(tables);
     }
-
-    res.json(false);
-  }
-  else {
-    res.json(tables);
-  }
 });
 
 // Create New tables - takes in JSON input
 app.post("/api/new", function(req, res) {
-  var newcharacter = req.body;
-  newcharacter.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+    var newtables = req.body;
+    newtables.routeName = newtables.name.replace(/\s+/g, "").toLowerCase();
 
-  console.log(newcharacter);
+    console.log(newtables);
 
-  tables.push(newcharacter);
+    tables.push(newtables);
 
-  res.json(newcharacter);
+    res.json(newtables);
 });
 
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+    console.log("App listening on PORT " + PORT);
 });

@@ -1,0 +1,25 @@
+{
+  "name": "new_restaurant",
+  "version": "1.0.0",
+  "description": "Node / Express based web applications for handling reservation requests.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brigmanlp/new_restaurant.git"
+  },
+  "author": "team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brigmanlp/new_restaurant/issues"
+  },
+  "homepage": "https://github.com/brigmanlp/new_restaurant#readme",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "express": "^4.15.0",
+    "path": "^0.12.7"
+  }
+}
