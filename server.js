@@ -33,7 +33,7 @@ var tables = [{
     customerName: "Flash",
     phoneNumber: 7042778379,
     customerEmail: "speedster@gmail.com",
-    customerID: "Xmen"
+    customerID: "DC peeps"
 }];
 
 var waitlist = [{
@@ -77,6 +77,7 @@ app.get("/api/tables", function(req, res) {
         res.json(false);
     } else {
         res.json(tables);
+        fs.readFile("tables.txt", tables, function(err){});
     }
 });
 
@@ -102,13 +103,30 @@ app.get("/api/waitlist", function(req, res) {
 // Create New tables - takes in JSON input
 app.post("/api/tables", function(req, res) {
     var newtables = req.body;
-    newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
+    console.log(tables.length);
+    if(tables.length<3){
+        newtables.routeName = newtables.customerID.replace(/\s+/g, "").toLowerCase();
 
-    console.log(newtables);
+        console.log(newtables);
+        
+        tables.push(newtables);
 
-    tables.push(newtables);
+        res.json(newtables);
+        fs.appendFile("tables.txt", tables, function(err){});
+    }else{
+        app.post("/api/waitlist",function(req,res){ //nh: this second app.post is what really screwed us up and prevented everything from working.  My thinking at the time was that we needed to have an "app.post" in order to "write" to "api/waitlist"...as though we were writing to a text file or something.
+        console.log(newtables);
+        
+        waitlist.push(newtables);
 
-    res.json(newtables);
+        res.json(newtables);
+        fs.appendFile("waitlist.txt", waitlist, function(err){});
+        });
+
+    }
+       
+
+
 });
 
 // Starts the server to begin listening
